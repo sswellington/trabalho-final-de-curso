@@ -1,0 +1,108 @@
+\section{Introdução}
+
+Introdução...
+
+\begin{itemize}
+    \item Exemplo do uso de Figura~\ref{fig:name}.
+    
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.1]{_fig/anoti.png}
+    \caption[Nome na tabela de figuras.]{Nome no caption da figura.}
+    \label{fig:name}
+    \end{figure}
+
+    \item Exemplo do uso de citação:
+    \begin{itemize}
+        \item Direta: \citeonline{Silva2019}
+        \item Indireta: \cite{Silva2019}
+    \end{itemize}
+    
+    \item Exemplo de Tabela~\ref{tab:classifiersCKC}. Criado com o auxilio do \textit{Tables Generator}\footnote{\url{tablesgenerator.com/latex_tables}}.
+    \begin{table}[!htp]
+\centering
+\caption[Nome na lista]{Nome no caption}
+\label{tab:classifiersCKC}
+\begin{tabular}{l|c|c|c|c|c||c|c} \hline \hline
+ & 
+\multicolumn{7}{c}{ {\cellcolor[HTML]{68CBD0}\textbf{Tamanho da Amostra}} }    \\ \hline
+\cellcolor[HTML]{68CBD0} \textbf{Classificador} & 
+\cellcolor[HTML]{68CBD0} \textbf{$1 \cdot 10^1$}  & 
+\cellcolor[HTML]{68CBD0} \textbf{$1 \cdot 10^2$}  & 
+\cellcolor[HTML]{68CBD0} \textbf{$1 \cdot 10^3$}  & 
+\cellcolor[HTML]{68CBD0} \textbf{$1 \cdot 10^4$}  & 
+\cellcolor[HTML]{68CBD0} \textbf{$1 \cdot 10^5$}  &
+\cellcolor[HTML]{68CBD0} \textbf{$\bar{\mu}$} &
+\cellcolor[HTML]{68CBD0} \textbf{$\mu$}\\ \hline \hline
+Na\"ive-Bayes         & 0,156 & 0,710 & 0,793 & 0,797 & 0,805  & 0,804 & 0,652 \\ \hline
+Bayes-Net         & 0,038 & 0,423 & 0,639 & 0,722 & 0,743  & 0,739 & 0,513 \\ \hline
+kNN        & 0,675 & 0,874 & \textbf{0,967} & \textbf{0,967} & 0,971 & 0,970 & 0,890\\ \hline
+\textbf{MLP-LM} & \textbf{0,697} & \textbf{0,895} & 0,953 & \textbf{0,967} & \textbf{0,972} & \textbf{0,971} & \textbf{0,896} \\ \hline
+MLP-RPROP     & 0,423 & 0,829 & 0,929 & 0,958 & 0,968  & 0,967 & 0,821 \\ \hline
+DecisionTree         & 0,493 & 0,790 & 0,922 & \textbf{0,967} & 0,970  & 0,969 & 0,828 \\ \hline
+RandomForest         & 0,350 & 0,854 & 0,947 & \textbf{0,967} & \textbf{0,972} & \textbf{0,971} & 0,818\\ \hline 
+RandomForest         & 0,350 & 0,854 & 0,947 & \textbf{0,967} & \textbf{0,972} & \textbf{0,971} & 0,818\\ \hline \hline
+
+\end{tabular}
+\end{table}
+    
+    \item Exemplo de aplicação de Definição~\ref{def:pixel}
+    
+    \begin{definition}\label{def:pixel}[Pixel] 
+    Um pixel $P_i=\{r_i,g_i,b_i\} $ é constituído por uma tupla no espaço de cores RGB, onde $r_i$ é a componente do eixo vermelho, $g_i$ é a componente do eixo verde e $b_i$ é a componente do eixo azul.
+    \end{definition}
+    
+    \item Exemplo de Equação~\eqref{eq:pesos}
+    
+    \begin{equation}\label{eq:pesos}
+    P_i' = (r_i', g_i', b_i');~r_i' = g_i' = b_i' = r_i - \frac{g_i + b_i}{2}
+    \end{equation}
+    
+    \item Exemplo de Algoritmo~\ref{alg:2pla}
+    
+    \begin{algorithm}[!htb]
+    \nonl \rule[0.5ex]{410px}{0.5pt}\\
+    \SetKwFunction{media}{Média}
+    \SetKwInOut{Input}{Entrada}
+    \SetKwInOut{Output}{Saída}
+    \Input{Prova1 $p1$, Prova2 $p2$, Resultado $r$.}
+    \Output{Valor fatorial.}
+    \nonl \rule[0.5ex]{410px}{0.5pt}\\
+    \tcc{Somatório}
+    \media $\leftarrow \langle p1,p2 \rangle$\;
+     \If{$\media > 5,9$ }{
+        $r \leftarrow \langle$ ``Aprovado''$\rangle$\  \;
+     }\Else{
+        $r \leftarrow \langle$ ``Reprovado''$\rangle$\  \;
+     }
+    \Return $r$\;
+    \nonl \rule[0.5ex]{410px}{0.5pt}\\
+    \caption{Disciplina.}
+    \label{alg:2pla}
+    \end{algorithm}
+
+\end{itemize}
+
+
+
+
+
+
+\subsection{Motivação e contexto}
+
+Motivação e Contexto...
+
+\subsection{Objetivo}
+
+Objetivos ...
+
+\subsection{Organização da monografia}
+Esse documento está organizado em XX capítulos.
+Além desse, os demais capítulos incluem o seguinte conteúdo:
+\begin{itemize}
+    \item O Capítulo~\ref{sec:background} 
+    \item O Capítulo~\ref{sec:methods} 
+    \item O Capítulo~\ref{sec:exp_result} 
+    \item O Capítulo~\ref{sec:conclusion} 
+\end{itemize}
+
