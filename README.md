@@ -1,7 +1,7 @@
 # Trabalho Final de Curso :mortar_board:
 ## Combinando abordagens supervisionadas e não supervisionadas para segmentação de imagens de úlceras em membros inferiores
-* [Monografia :memo:](https://github.com/sswellington/Template_TCC/blob/master/monografia-min.pdf)
-* [Apresentação :man_teacher:](https://github.com/sswellington/Template_TCC/blob/master/apresentation.pdf)
+* [Monografia :memo:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/monografia-min.pdf)
+* [Apresentação :man_teacher:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/apresentation.pdf)
 
 ### Resumo
 
