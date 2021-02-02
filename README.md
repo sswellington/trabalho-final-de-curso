@@ -3,7 +3,13 @@
 * [Monografia :memo:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/monografia-min.pdf)
 * [Apresentação :man_teacher:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/apresentation.pdf)
 
-### Resumo
+## 2019 IEEE 32nd International Symposium on Computer-Based Medical Systems (CBMS)
+* [Apresentação :man_teacher:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/apresentation.pdf)
+* DOI: [10.1109/CBMS.2019.00076](https://ieeexplore.ieee.org/document/8787493/)
+
+---
+
+## Resumo
 
 A segmentação de tecidos de fotografias de úlceras crônicas em membros inferiores é uma abordagem não intrusiva para análises dermatológicas. 
 
@@ -81,3 +87,13 @@ A avaliação final do 2PLA com as duas fases devidamente configuradas em um con
 ##### 3. Pós-Textuais
 * Referência
 * Anexo (opcional)
+
+
+--- 
+
+## Repercussão do trabalho 
+* [UFF-INFES](http://infes.uff.br/aluno-do-infes-uff-e-pesquisadores-do-grupo-anoti-tem-trabalho-reconhecido-em-conferencia-internacional-aluno-wellington-de-souza-silva-do-curso-de-computacao-do-infes-uff-foi-premiado-como-finalist/)
+* [ICMC-USP](https://icmc.usp.br/noticias/4404-computacao-e-medicina-artigos-do-icmc-sao-premiados-em-conferencia-internacional)
+* [FAPESP](https://agencia.fapesp.br/artigos-de-pesquisadores-do-icmc-usp-sao-premiados-em-conferencia-internacional/31134/)
+* [IFNMG](https://www.ifnmg.edu.br/mais-noticias-portal/492-portal-noticias-2019/21351-professor-do-ifnmg-e-um-dos-autores-de-estudo-premiado-em-uma-das-principais-conferencias-na-area-de-computacao-medicina-e-bioinformatica)
+* [Computer](https://www.computer.org/csdl/proceedings-article/cbms/2019/228600a343/1cdO0qLxGvK)
