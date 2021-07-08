@@ -1,0 +1,115 @@
+% \clearpage
+\section{Conclusão}\label{sec:conclusion}
+
+Neste trabalho foram  aplicadas técnicas de processamento de imagens digitais e aprendizado de máquina com o objetivo de desenvolver uma ferramenta CAD especializada capaz de auxiliar no diagnóstico e acompanhamento de úlceras em membros inferiores à partir de fotografias das lesões.
+Ao contrário das abordagens existentes, as propostas desse trabalho consideram que a área em volta da lesão e os tecidos não lesionados são igualmente importantes para o tratamento da ulceração.
+Por exemplo, os tecidos na borda da lesão podem indicar que a úlcera está cicatrizando ``rápido'' demais ou que a lesão está gerando um excesso de umidade no local.
+Essas informações não são úteis para a detecção dos tipos dos tecidos lesionados em si, mas são de grande importância para o acompanhamento do procedimento terapêutico realizado pelo dermatologista ou outro profissional da saúde.
+
+Não obstante, durante os estudos realizados foi detectado que seria desejável restringir o volume de dados a ser analisado para apenas a região de derme (lesionada ou não) para diminuir os custos computacionais associados ao processamento de imagens.
+Portanto, uma primeira necessidade mais objetiva detectada foi a remoção da área do fundo da imagem (lençóis, etc.) da área de interesse (pele dos pacientes). 
+Essa tarefa é particularmente desafiadora, pois deve-se remover dados inúteis, porém com a menor taxa de erro possível para que não haja interferência no resultado resultado final da segmentação.
+
+Uma primeira solução para a remoção do fundo, foi o projeto de uma solução \textit{ad-hoc}, composta de uma conversão de imagem colorida no padrão RGB para uma imagem em tons de cinza. 
+Nessa transformação, após testes para determinar a influência de cada uma das componentes de cor, os pesos das componentes cromáticas foram definidos de forma arbitrária de modo que apenas a área de interesse se tornasse visível com a aplicação de uma máscara.
+A separação da imagem em duas classes (fundo e pele) foi obtida com o uso de uma técnica de binarização com limiar, calculado automaticamente pelo método de Otsu.
+Como esperado para essa metodologia, a imagem resultante apresentou ruídos que foram removidos por filtros de processamento de imagens baseados em morfologia matemática. 
+
+Embora os resultados dessa metodologia \textit{ad-hoc} tenham apresentado alguma eficiência em segmentar a pele do fundo da imagem, foi verificado que ao se fazer uso de um único limiar há a perda de trechos da imagem erroneamente identificados como fundo.
+Para remover essa característica indesejada de um único ponto de corte, uma nova técnica de segmentação foi adotada -- o uso de classificadores oriundos do aprendizado de máquina.
+Esses métodos permitem definir múltiplos critérios de corte que, dentro de algumas perspectivas, podem ser vistos como múltiplos limiares.
+Os filtros de suavização morfológica foram mantidos ao final do processo de classificação pixel-a-pixel.\\~\\
+
+Como método de aprendizado de máquina, foram testados seis classificadores, sendo eles: Na\"{i}ve-Bayes, Bayes-Net, \textit{k}-Nearest Neighbor, Multi-Layer Perceptron (MLP), DecisionTree, RandomTree e RandomForest. 
+Desses, por meio de avaliação de qualidade baseada no coeficiente de Cohen-Kapa e curva ROC, a MLP se mostrou muito mais eficaz para classificar pixels entre pele e fundo da imagem.
+Essa abordagem foi, então, adotada como a primeira fase do método final proposto nesse trabalho, o \system.
+Uma vez selecionada a área de interesse, o próximo passo do \system consiste em separar regiões de pele saudável de regiões lesionadas.
+Para tanto, aplica-se o método SLIC para agrupar pixels similares em superpixels com bordas bem definidas.
+Esses superpixels podem ser representados em um espaço tridimensional dado pelo modelo de cores LAB, de forma que torna-se possível agrupá-los de acordo com a sua densidade no espaço multidimensional pelo algoritmo particional DBSCAN.
+
+Portanto, o maior desafio nessa segunda fase do \system é encontrar o ajuste da parametrização adequada para o método DBSCAN.
+Foram analisadas cinco funções de distâncias métricas, sendo a $L_1$ a função de distância mais ``estável'', no sentido de produzir sempre menos grupos para todas as imagens avaliadas.
+Na sequência, as avaliações empíricas mostraram que o número de grupos resultantes da aplicação do método DBSCAN sobre superpixels de imagens de úlceras é uma função de decaimento exponencial em relação ao limiar de similaridade.
+Com isso, foi usado o critério do ``cotovelo'' (similar ao usado para o \textit{Scree-Plot} no método de análise de componentes principais) para se fixar o valor de similaridade de $3\%$ da distância máxima no espaço unitário de cores a ser usado pelo DBSCAN.
+
+O método \system ajustado com o classificador MLP e o método de agrupamento DBSCAN com função $L_1$ e limite de similaridade de $3\%$ foi aplicado sobre um conjunto real de úlceras em membros inferiores que já havia sido segmentado manualmente por especialistas da área.
+Assim, foi possível comparar as segmentações geradas pela solução proposta nesse trabalho contra especialistas do domínio.
+Para o conjunto de imagens avaliadas, o \system obteve um Erro Absoluto Médio de apenas 0,05 (variância de 0,01), o que permite concluir que as segmentações automáticas alcançaram resultados próximos aos dos especialistas humanos.
+
+Como conclusão final, o método \system proposto empregou uma combinação de técnicas de aprendizado supervisionado e não-supervisionado capazes de segmentar regiões de úlcera em membros inferiores e fornecendo resultados e observações empíricas que podem ser usadas por trabalhos relacionados em um futuro próximo.
+
+
+\subsection{Dificuldades Encontradas}
+
+Na execução desse trabalho foram superadas diversas dificuldades, tais como:
+
+\begin{enumerate}
+
+    \item \textit{Seleção dos métodos}.
+    Uma vez que não há indicação clara na literatura de quais métodos (ou abordagens) são os mais eficientes para o processamento de imagens de úlceras, foi necessário um estudo aprofundado das metodologias aplicáveis ao problema.
+
+    \item \textit{Cronograma de atividades}. 
+    Os temas necessários para realização da pesquisa eram ``cíclicos'', sendo necessário revisar diversos conceitos de forma paralela.
+
+    \item \textit{Framework de implementação}. 
+    Foram testadas várias plataformas de implementação e linguagens de programação, como C++, antes que fosse identificada a mais adequada ao propósito do trabalho (Matlab). 
+    Portanto, algumas partes do trabalho precisaram ser adaptadas ou reescritas algumas vezes.
+
+    \item \textit{Tempo de Execução}. 
+    Alguns testes requisitaram grande esforço computacional, levando horas até que resultados pudessem ser apreciados. 
+    Isso fez com que a identificação de ajustes necessários ao trabalho levassem dias para serem realizados.
+
+    \item \textit{Biblioteca/Espaço de Estudos}. 
+    O acervo da biblioteca do INFES contempla apenas livros-texto das disciplinas obrigatórias.
+    Frequentemente, alguns assuntos necessários ao desenvolvimento desse trabalho não estavam disponibilizados.
+    Além disso, ocorreram múltiplas greves e paralisações que afetaram o funcionamento da biblioteca.
+  
+\end{enumerate}
+
+\subsection{Publicação}
+
+Os resultados principais decorrentes desse trabalho foram publicados em uma conferência internacional de impacto nas áreas de Computação e Informática Biomédica.
+O artigo foi apresentado no dia dois de junho de 2019 na Espanha, mas o D.O.I. (\textit{Digital Object Identifier}) da publicação ainda não se encontra livremente disponibilizado na internet\footnote{https://www.doi.org/}. 
+A citação completa do artigo, por enquanto, é como se segue.
+
+\begin{itemize}
+    \item Silva, Wellington S.; Jasbick, Daniel L.; Wilson, Rodrigo E.; Azevedo-Marques, Paulo M.; Traina, Agma J. M.; Santos, Lucio F. D.; Jorge, Ana E. S.; Oliveira, Daniel; Bedo, Marcos V. N. \textit{A Two-Phase Learning Approach for the Segmentation of Dermatological Wounds}. In:~\textit{Proceedings of 32nd International Symposium on Computer-Based Medical Systems.} Cordoba – ESP: IEEE. v. 1, p. 1–6. 
+\end{itemize}
+
+Além dessa publicação, os resultados iniciais obtidos com o método \textit{ad-hoc} foram submetidos em relatório técnico PROAES/UFF do projeto ``\textit{Implementação de extratores de características para imagens de úlcera venosa}'' de 2017. 
+
+\subsection{Premiação}
+
+Os resultados desse trabalho foram reportados na forma de um relatório e um artigo científico, apresentados na V Semana de Desenvolvimento Acadêmico da UFF e no $32^o$ Congresso CBMS, respectivamente.
+Ambos os trabalhos foram premiados pelas comissões técnicas avaliadoras dos eventos, como se segue.
+
+\begin{enumerate}
+    \item \textbf{(Convite para re-apresentação na Semana Nacional de Tecnologia -- INFES)} -- Implementação de extratores de característica para imagens de úlcera venosa.  \textit{V Semana de Desenvolvimento Acadêmico}.
+    S. A. Pádua: Pró-Reitoria de Assuntos Estudantis, 2017
+
+    \item \textbf{(Menção Honrosa -- Finalist Paper)} -- A Two-Phase Learning Approach for the Segmentation of Dermatological Wounds. 
+    \textit{$32^o$ International Symposium on Computer-Based Medical Systems}. Cordoba/ESP, 2019.
+\end{enumerate}
+
+
+\subsection{Trabalhos Futuros}
+
+O estudo e as avaliações experimentais desse trabalho serão usados como base para estender a investigação sobre imagens de úlceras dermatológicas.
+Em particular, como trabalhos futuros, pretende-se investigar as seguintes vertentes derivadas dessa pesquisa:
+
+\begin{itemize}
+    
+    \item \textit{Comparar o método DBSCAN com outros métodos de agrupamento como a segunda fase da solução \system}. 
+    Outros métodos de agrupamento, em especial aqueles baseados em grafos, podem ser usados como a segunda fase da solução \system. 
+    Determinar qual método é o mais adequado para esse domínio requer avaliação teórica e experimental dos algoritmos comparados.
+    
+    \item \textit{Rotular os tecidos afetados}.
+    As regiões segmentadas pelo \system podem ser automaticamente rotuladas por classificadores treinados com exemplos de fibrina, necrose, tecidos de borda calosa e outros. 
+     
+    \item \textit{Construir um aplicativo para hospedar a solução \system}.
+    O método \system pode ser incorporado diretamente em um aplicativo móvel que capture fotos de úlceras em membros inferiores e as analise automaticamente.
+    
+    \item \textit{Sugerir tratamentos baseados em diagnósticos similares}.
+    A saída do método \system permite obter uma imagem estruturada em trechos de diferentes tipos de lesão.
+    Essa estrutura pode ser usada para comparar a fotografia analisada com imagens laudadas e previamente armazenadas em um banco de dados.    
+\end{itemize}

@@ -1,0 +1,14 @@
+\clearpage
+\section{Experimentos e Resultados} \label{sec:exp_result}
+
+Este capítulo apresenta os experimentos realizados para a avaliação da proposta \system detalhada na Seção~\ref{sec:methods} e discute os resultados obtidos.
+Foram avaliados diversos cenários, sempre considerando o conjunto de dados \dataset e sua segmentação realizada por especialistas.
+
+A primeira etapa do processo de avaliação consistiu na definição do conjunto de dados rotulado para o treinamento do classificador da primeira fase do \system.
+Na sequência, diversos classificadores foram avaliados para o processamento do conjunto de dados rotulados, sendo empregadas diversas métricas de qualidade para definir a melhor abordagem de classificação.
+Os próximos experimentos foram realizados para determinar os parâmetros mais adequados para a execução do algoritmo DBSCAN.
+Em particular, foram avaliadas cinco funções de distância que possuem diferentes perspectivas geométricas e o resultado foi quantificado em função do limite de similaridade máximo tolerado pelo DBSCAN.
+O último exame sobre a qualidade da proposta foi usar o método \system com o melhor classificador, com o melhor limite de similaridade e melhor função de distância (todos obtidos experimentalmente) para segmentar imagens reais do conjunto \dataset, sendo que o resultado obtido foi justaposto à segmentações manuais realizada por um especialista.
+
+Todos os experimentos foram realizados em uma máquina local com a seguinte seguinte configuração: Sistema Operacional Linux Ubuntu 18.04.1 LTS\footnote{\url{releases.ubuntu.com/18.04/}} com um processador $i3 - 2310M  ~ 2.1$ Ghz de $04$ núcleos, equipado com 06Gb de memória RAM.
+Os conjuntos de dados avaliados e/ou gerados para a definição da parametrização do sistema se encontram publicamente disponíveis no mesmo repositório do código-fonte da solução\footnote{\url{github.com/sswellington/2PLA/tree/master/dataset}}.

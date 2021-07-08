@@ -1,0 +1,32 @@
+\clearpage
+\section{Material e Métodos}\label{sec:methods}
+
+Este capítulo aborda o protocolo de aquisição das imagens utilizadas para a análise e validação da proposta desse trabalho.
+O conjunto de dados é o mesmo empregado em trabalhos relacionados, o que facilita a comparação da técnica desenvolvida com outros resultados encontrados na literatura.
+Os recursos computacionais necessários para a implementação também são discutidos, com a finalidade de contribuir de forma transparente com a comunidade científica e facilitar a replicabilidade desse trabalho por interessados.
+Nesse sentido, toda a implementação e dados usados nos experimentos foram disponibilizados em um repositório público\footnote{\url{github.com/sswellington/2PLA}} e podem ser obtidos por quaisquer usuários cadastrados no repositório.
+
+O capítulo se foca nos métodos desenvolvidos para a segmentação das úlceras em membros inferiores que foram construídos e testados de forma próxima a incremental.
+Em um primeiro momento, foi desenvolvida uma solução \textit{ad-hoc}, baseada exclusivamente em técnicas de processamento de baixo nível que se mostraram capazes de alcançar resultados interessantes para a separação entre fundo e pele.
+A abordagem \textit{ad-hoc} foi avaliada em um pequeno conjunto de três imagens ulceradas e os resultados indicaram que uma solução estruturada, orientada a aprendizado de máquina, teria uma possibilidade de melhorar ainda mais o sucesso obtido.
+
+Nesse sentido, em um segundo momento, foi proposta uma solução para segmentação de úlceras como uma abordagem em duas fases.
+A primeira delas é baseada em classificação e permite separar fundo e pele, lesionada ou não.
+Já a segunda parte possibilita aglutinar pedaços de tecidos similares que podem ser divididos entre lesão, cicatrização, pele saudável e outros.
+As próximas seções apresentam a abordagem \textit{ad-hoc}, os resultados obtidos para segmentação e indícios de adequabilidade para o uso de técnicas de aprendizado de máquina e, finalmente, o método em duas fases proposto para a segmentação completa de úlceras.
+
+
+\subsection{Material: Conjunto de Dados e Ferramentas}
+
+Nesse trabalho foi usado o conjunto \dataset, gerado por \citeonline{Dorileo2008} e \citeonline{Pereira2011}.
+Esse conjunto de imagens foi coletado de pacientes não-parentes por dermatologistas do Hospital das Clínicas da Universidade de São Paulo em Ribeirão Preto/SP (HC-FMRP-USP).
+As fotografias coloridas de úlceras foram padronizadas de acordo com duas características: 
+\textit{(i)}~plano de fundo -- foi usado um pano ou azul ou branco, e 
+\textit{(ii)}~uma régua de cores.
+A cor escolhida para o plano de fundo tem a finalidade de proporcionar contraste entre a pele do paciente e o fundo da imagem, de maneira a simplificar a tarefa de segmentação em uma técnica parecida com a \textit{croma key}.
+Já a régua de cor foi usada com a finalidade de permitir a calibragem das cores em diferentes equipamento de projeções~\cite{Pereira2011}.
+
+As imagem resultantes, no entanto, apresentam diversas dificuldades para o processamento.
+Por exemplo, o fundo da imagem, ainda que azul ou branco, apresenta oscilação nas tonalidades de ``azul'' e ``branco'' e há uma irregularidade relacionada a distância da câmera ao membro inferior e o foco em torno das fotografias.
+A câmera digital utilizada para obtenção das imagens foi a da fabricante Canon Inc, modelo  EOS 5D0, com a seguinte caracterização: Dois megapixels, lente macro de 50 mm e um filtro de polarização. 
+A imagem resultante desta câmera possui tamanho de $1747\times1165$ \textit{pixels} com 24-bits de profundidade~\cite{Dorileo2008}.\\
