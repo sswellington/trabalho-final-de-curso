@@ -1,13 +1,13 @@
 # Trabalho Final do Curso de Computação :mortar_board:
 
-## [Monografia :memo:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/monografia-min.pdf) | [Apresentação :man_teacher:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/apresentation.pdf)
+## [Monografia :memo:](https://github.com/sswellington/trabalho-final-de-curso/blob/main/docs/monografia-min.pdf) | [Apresentação :man_teacher:](https://github.com/sswellington/trabalho-final-de-curso/blob/main/docs/apresentation.pdf)
 
 <p align="center">
 	<img src="img/tcc.png">
 </p>
 
 ---
-## [Apresentação :man_teacher:](https://github.com/sswellington/trabalho-final-de-curso/blob/master/apresentation.pdf) | [DOI:10.1109/CBMS.2019.00076](https://ieeexplore.ieee.org/document/8787493/) :notebook_with_decorative_cover: | [Código Fonte](https://github.com/sswellington/2PLA) :man_technologist:
+## [Apresentação :man_teacher:](https://github.com/sswellington/trabalho-final-de-curso/blob/main/docs/CBMS2019-2PLA.pdf) | [DOI:10.1109/CBMS.2019.00076](https://ieeexplore.ieee.org/document/8787493/) :notebook_with_decorative_cover: | [Código Fonte](https://github.com/sswellington/2PLA) :man_technologist:
 
 <p align="center">
 	<img src="img/cbms.png">
