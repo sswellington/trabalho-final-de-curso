@@ -37,9 +37,22 @@ Este projeto envolveu a concepção e implementação de técnicas de aprendizag
 
 ---
 
-### Notícia
-* Aluno Wellington de Souza Silva (Curso de Computação) INFES/UFF e pesquisadores do Grupo ANOTi têm trabalho reconhecido em conferência internacional.[ (UFF-INFES :link:)](http://infes.uff.br/aluno-do-infes-uff-e-pesquisadores-do-grupo-anoti-tem-trabalho-reconhecido-em-conferencia-internacional-aluno-wellington-de-souza-silva-do-curso-de-computacao-do-infes-uff-foi-premiado-como-finalist/)
-* A Two-Phase Learning Approach for the Segmentation of Dermatological Wounds[ (Computer :link:)](https://www.computer.org/csdl/proceedings-article/cbms/2019/228600a343/1cdO0qLxGvK)
-* Artigos de pesquisadores do ICMC-USP são premiados em conferência internacional[ (ICMC-USP :link:)](https://agencia.fapesp.br/artigos-de-pesquisadores-do-icmc-usp-sao-premiados-em-conferencia-internacional/31134/)
-* Computação e medicina: artigos do ICMC são premiados em conferência internacional[ (USP-ICMC :link:)](https://icmc.usp.br/noticias/4404-computacao-e-medicina-artigos-do-icmc-sao-premiados-em-conferencia-internacional)
-* Professor do IFNMG é um dos autores de estudo premiado em uma das principais conferências na área de computação, medicina e bioinformática[ (IFNMG :link:)](https://www.ifnmg.edu.br/mais-noticias-portal/492-portal-noticias-2019/21351-professor-do-ifnmg-e-um-dos-autores-de-estudo-premiado-em-uma-das-principais-conferencias-na-area-de-computacao-medicina-e-bioinformatica)
+## Certificado
+
+### V Semana de Desenvolvimento Acadêmico da Universidade Federal Fluminense
+<p align="center">
+	<img src="img/des_acad.png">
+</p>
+
+### IEEE Computer Society: Finalist paper in TCCLS Best Paper Award 
+<p align="center">
+	<img src="img/ieee.png">
+</p>
+
+---
+## Notícia
+* [Aluno Wellington de Souza Silva (Curso de Computação) INFES/UFF e pesquisadores do Grupo ANOTi têm trabalho reconhecido em conferência internacional.](http://infes.uff.br/aluno-do-infes-uff-e-pesquisadores-do-grupo-anoti-tem-trabalho-reconhecido-em-conferencia-internacional-aluno-wellington-de-souza-silva-do-curso-de-computacao-do-infes-uff-foi-premiado-como-finalist/)
+* [A Two-Phase Learning Approach for the Segmentation of Dermatological Wounds](https://www.computer.org/csdl/proceedings-article/cbms/2019/228600a343/1cdO0qLxGvK)
+* [Artigos de pesquisadores do ICMC-USP são premiados em conferência internacional](https://agencia.fapesp.br/artigos-de-pesquisadores-do-icmc-usp-sao-premiados-em-conferencia-internacional/31134/)
+* [Computação e medicina: artigos do ICMC são premiados em conferência internacional](https://icmc.usp.br/noticias/4404-computacao-e-medicina-artigos-do-icmc-sao-premiados-em-conferencia-internacional)
+* [Professor do IFNMG é um dos autores de estudo premiado em uma das principais conferências na área de computação, medicina e bioinformática](https://www.ifnmg.edu.br/mais-noticias-portal/492-portal-noticias-2019/21351-professor-do-ifnmg-e-um-dos-autores-de-estudo-premiado-em-uma-das-principais-conferencias-na-area-de-computacao-medicina-e-bioinformatica)
