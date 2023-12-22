@@ -1,0 +1,96 @@
+\section{Background and Related Work}\label{sec:background}
+
+Visual ulcer assessment is carried out by clinicians through the evaluation of wounded tissues and their adjacent skin.
+Such an evaluation is made upon ulcer size, edges, wounded tissue types and their area, surrounding skin color, peripheral edema, and epithelialization~\cite{Todd2018}.
+Ulcer measurement is a key metric for keeping track of wound healing ratio and progress, while the separation of distinct tissue types and the quantification of their areas constitute major beacons for assessing wound health status.
+Commonly, there is a non-uniform \textit{overlapping} of tissues within the ulcerated lower limb region depending on its healing stage.
+For instance, granulation tissues originated in the proliferative phase can appear mixed with fibrin, \textit{i.e.}, non-viable tissues, or even with necrosis, whenever the number of bacteria is not properly under control~\cite{Pereyra2014}.
+Analogously, surrounding wound skin provides crucial information about therapeutic intervention and treatments.
+For example, adjacent skin may include scar formation, hyperkeratosis, pathogenic inflammatory signs, and hyper\-pigmentation in cases of chronic and venous ulceration~\cite{Todd2018}.
+
+Therefore, the design of a CAD method for ulcer segmentation depends on distinguishing wounded tissues \textit{within} and \textit{around} ulcered areas.
+Classification-only approaches represent skin content as feature vectors and label them according to biased functions, which are previously induced by a training set of examples.
+Feature vectors are extracted from either feature engineering methods~\cite{Sonka2014}, or auto encoders of convolutional neural networks~\cite{Aggarwal2018}, whereas classifier methods are derived from several paradigms, as Na\"{i}ve-Bayes (NB), Bayes-Net (BN), Instance-based Learning (IbL), Multi-Layer Perceptron with Levenberg--Marquardt (MLP-LM) or Rprop training algorithms (LMP-RP), Decision-Tree (DT), and RandomForest (RF)~\cite{Aggarwal2015}.
+The proposals in~\cite{Kavitha2017,Blanco2016,Chino2018} employ feature engineering methods for the classification of a dermatological ulcer according to the type of the majority of wounded tissues.
+Analogously, the approaches in~\cite{Deserno2018,Godeiro2018,Zahia2018} apply deep-learning methods for extracting and classifying five types of wounds according to their most dominant tissues.
+The main drawback with such approaches is they disregard \textit{mixed} wound types, as in evolving borders or epithelialization where the number of tissue combinations is virtually unlimited.
+
+Clustering approaches are alternatives to supervised methods, as they group both border and interior tissues according to their similarity.
+For instance, the studies~\cite{Maity2018,Dhane2017} apply Gaussian Mixture Models, Hard and Fuzzy clustering for the segmentation of wounded and border tissues.
+Although such strategies provide a more comprehensive ulcer segmentation and support the pixelwise measurement of wounded areas, their running time is affected by the number of regions of interest, and, therefore, their processing may be unsuitable for local and power-limited mobile devices~\cite{Deserno2018}.
+
+Our premise is combining supervised and unsupervised learning improves current state-of-the-art wound segmentation since the number of regions of interest to be clustered can be reduced through a classification-first phase.\\
+
+\noindent 
+\textbf{Notation.}
+An \textit{image} $I$ is a structured set of $n$ pixels, \textit{i.e.}, $I = \{P_{i} ~|~ 0 \leq i < n \}$.
+A pixel $P_i$ is a tuple $P_{i} =  \langle r_{i}, g_{i}, b_{i} \rangle$, where $r_{i}, g_{i}$, and $b_{i}$ are the pixel coordinates in the $RGB$ color space~\cite{Sonka2014}.
+A \textit{superpixel} $S$ corresponds to a structured subset $S \subseteq I$ defined as $S = \{P_{j} ~|~ 0 \leq j < m \}$, where $m ~(m \leq n)$ is the number of pixels inside superpixel $S$. 
+The superpixel average value $\bar{P_S}$ is a tuple $\bar{P_S} = \langle \mu(r), \mu(g), \mu(b)\rangle$, in which $\mu(k) = \sum_{j = 0}^{m-1} k_j/m$.
+The set of images is denoted by $\mathcal{I}$, and the set of superpixels is denoted by $\mathcal{S}$.\\
+
+\noindent 
+\textbf{Color space transformation.} 
+The $Lab$ color space transformation is a function $\varepsilon: RGB \rightarrow Lab$ that maps an $RGB$ coordinate into a point of the $Lab$ space.
+Given a pixel $P_i$, $\varepsilon$ calculates the mapped $Lab$ point as in Equation~\ref{eq:rgb2Lab}.
+\begin{equation}\label{eq:rgb2Lab}
+\begin{split}
+L = 116*f\left(\frac{y_i}{100}\right) - 16,\\
+a = 500*f\left(\frac{x_i}{95.047} - \frac{y_i}{100}\right), \\
+b = 200*f\left(\frac{y_i}{100} - \frac{z_i}{108.883}\right),\\
+f(k) =
+\begin{cases}
+    \sqrt[3]{k},     & \text{if } k > (6/29)^3 \\
+    \frac{k}{3*(6/29)^2} + \frac{4}{29}\,   & \text{otherwise}
+\end{cases},\\
+\begin{bmatrix}
+    x_i\\
+    y_i\\
+    z_i
+\end{bmatrix}
+=
+\begin{bmatrix}
+    .4124 & .3576 & .1805 \\
+    .2126 & .7152 & .0722 \\
+    .0193 & .1192 & .9505
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+    r_i\\
+    g_i\\
+    b_i
+\end{bmatrix}
+\end{split}
+\end{equation}\\
+
+\noindent
+\textbf{Superpixel segmentation.}
+Pixels within a superpixel are automatically selected from an image according to a \textit{superpixel construction algorithm}.
+Such algorithms are functions $G(I, K_p) = \{S_j ~|~ 0 \leq j < K_p\}$ that take one image $I$ and generate $K_p$ disjoint and non-empty superpixels $S_j, ~S_j \subset I$.
+Comparative surveys for state-of-the-art superpixel algorithms~\cite{Achanta2012,Barbieri2015} indicate SLIC method provides good adherence to image boundaries, and it is the most efficient strategy for superpixel generation.\\
+
+\noindent
+\textbf{Classifier.}
+A classifier $\phi$ is a function $\phi: \{\mathcal{P}, T\} \rightarrow L$, where $L$ is a discrete and disjoint set of labels, $\mathcal{P}$ is the pixel domain, and $T$ is a training set that conditions the behavior of $\phi$~\cite{Aggarwal2015}.
+In the context of this study, $T$ summarizes a finite and non-empty set of labeled pixels, \textit{i.e.}, $T = \{\langle P_i, l_j\rangle~| L = \cup_j l_j\}$, and the classifier \textit{learning algorithm} is a biased method that induces the behavior of $\phi$ from $T$ to predict a label $l \in L$ for any pixel $P_j \in \mathcal{P} \subseteq \mathcal{I}$.
+Examples of classifiers for wounded tissue classification include DT, NB, BN, DS, MLP-LM, MLP-RP, IbL, and RF methods~\cite{Blanco2016,Chino2018,Veredas2010,Kavitha2017}.\\
+
+
+\noindent
+\textbf{Partitional Clustering.} 
+A crisp clustering method is a function $\theta$ that partitions data entries into a set of disjoint clusters.
+Given a set of superpixels $\mathcal{S}$ and a set of groups $\mathcal{C}$, clustering method $\theta: \mathcal{S} \rightarrow \mathcal{C}$ assigns each superpixel $S \in \mathcal{S}$ to only one cluster $C \in \mathcal{C}$ so that $\cup_{C_i \in \mathcal{C}} C_i = \mathcal{S}$ and $\cap_{C_i \in \mathcal{C}} C_i = \emptyset$.\\
+
+
+\noindent
+\textbf{Similarity metric.} 
+A similarity metric is a distance function $\delta: \mathbb{M} \times \mathbb{M} \rightarrow \mathbb{R}_{+}$ that measures the distance bewteem two points in $\mathbb{M}$, \textit{e.g.}, $Lab$ coordinates.
+Semantically, the farther the points, the higher their dissimilarity.
+For any $m_1, m_2, m_3 \in \mathbb{M}$, $\delta$ satisfy the following axioms: 
+\textit{(i)}~symmetry; 
+\textit{(ii)}~non-negativity; and 
+\textit{(iii)}~triangle inequality.
+Therefore, branch-and-bound searching routines take advantage of such axioms for speeding up pairwise comparisons~\cite{Hetland2009}.
+
+
+

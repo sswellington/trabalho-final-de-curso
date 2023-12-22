@@ -1,0 +1,37 @@
+\title{Trabalho Final de Curso}
+
+% Pré-texto
+
+\input{Pre-texto/Includes}
+\input{Pre-texto/Dados_da_Capa_e_Folha_de_Rosto}
+
+\begin{document}
+
+\input{Pre-texto/Capa} \newpage
+\input{Pre-texto/Lista_de_Ilustracoes} \newpage
+\blankpage
+\input{Pre-texto/Lista_de_Tabela.tex} \newpage
+\blankpage
+\input{Pre-texto/Lista_de_Abreviacoes_e_Siglas} \newpage
+\blankpage
+\input{Pre-texto/Lista_de_Simbolos} \newpage
+\blankpage
+\input{Pre-texto/Sumario} \newpage
+
+% Texto
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\input{tex/1_Introducao}
+\input{tex/2_Background}
+\input{tex/3_Material}
+\input{tex/4_Resultados}
+\input{tex/5_Conclusao}
+
+% Pós-texto
+% \bibliographystyle{abnt-alf}
+\clearpage
+\bibliography{ref}
+
+\end{document}

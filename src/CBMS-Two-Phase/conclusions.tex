@@ -1,0 +1,11 @@
+\section{Conclusions and Future Work}
+
+This study has discussed a two-phase segmentation approach for detaching pieces of tissues within and around dermatological ulcers.
+The method, called \system, combines supervised and unsupervised learning for reducing the number of regions of interest and the clustering of visually similar tissues.
+Empirical evaluations on a real image set indicated \system effectively separated skin and background pixels at $.971$ CKC, and efficiently reduced the number of superpixels to be clustered in up to $48\%$.
+Additionally, experiments showed $L_1$ was the metric that generated fewer groups in comparison to the competitors, and the number of clusters is an exponential decay to the similarity threshold.
+
+Accordingly, \system was fine-tuned with elbow criterion for determining the clustering threshold.
+We also compared \system to manual segmentation, and results showed \system quantified the pixelwise area at a $.05$ MAE ratio.
+Future works include \system extension for handling superpixel convolutional features as well as the evaluation of hierarchical clustering methods as \system second phase.
+

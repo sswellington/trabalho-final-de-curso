@@ -1,0 +1,53 @@
+\section{Introduction}
+
+Photographs of ulcers in lower limbs have the potential for supporting dermatologists analyses, as they include valuable information regarding the wounded area~\cite{Bates2016} and tissue characterization~\cite{Blanco2016,Todd2018}.
+Image obtaining is a non-intrusive process, \textit{e.g.}, smartphone-based image recording~\cite{Deserno2018,Goyal2018}, while digital photo management can be carried out by non-complex engines in comparison to radiological systems~\cite{Gillies2015}.
+Such advantages favor the exponential increase in the number of annotated photos digitally stored, which gives room for the design of new Computer-Aided Diagnosis (CAD) tools~\cite{Chino2018,Deserno2018}.
+In contrast to pattern recognition tasks that aims at classifying and reporting skin abnormalities~\cite{Zahia2018}, the analysis of chronic ulcers are rather related to the \textit{segmentation} of wounded tissues so that they can be further integrated with patient data, previous diagnoses, or even radiomics systems~\cite{Gillies2015}.
+
+Challenges regarding the design of segmentation methods for chronic ulcers in lower limbs consist of \textit{(i)}~characterizing particular types of tissues and 
+\textit{(ii)}~quantifying tissue areas within and around wounded regions~\cite{Pereyra2014,Todd2018}.
+Typically, CAD methods are based on either \textit{supervised} or \textit{unsupervised} learning paradigms.
+Supervised approaches heavily rely on classification algorithms for the separation of  healthy skin pixels from those \textit{within} the ulcered region.
+Godeiro et al.~\cite{Godeiro2018} use a color space reduction for the extraction of wounded regions according to their most dominant tissues at $94\%$ Dice Coefficient ratio.
+Mukherjee et al.~\cite{Mukherjee2014} apply low-level color extractors and Support-Vector Machines for the labeling of chronic wounds into five classes at $87.61\%$ hit ratio.
+Blanco et al.~\cite{Blanco2016} and Chino et al.~\cite{Chino2018} use the same set of five labels, but apply a divide-and-conquer strategy in which wounds are segmented with the support of superpixel construction methods~\cite{Achanta2012,Barbieri2015}.
+Such methods divide an image into regions of interest with well-defined borders that are further extracted by feature engineering methods, as MPEG-7 descriptors~\cite{Blanco2016} or Bag-of-Signatures~\cite{Chino2018}. 
+Extracted features are labeled by RandomForest in up to $89.87\%$ accuracy.
+
+Deep-learning models combine both image extraction and data classification into a single package, which removes the need for feature engineering methods.
+Goyal et al.~\cite{Goyal2018} use a deep network for the segmentation of diabetic ulcers into three groups at $92.5\%$ accuracy ratio, while Zahia et al.~\cite{Zahia2018} define a convolutional network for segmenting pressure ulcers at $91.3\%$ Dice Coefficient ratio.
+The main drawback with \textit{supervised-only} approaches is they do not differ all tissue combinations within and around the wound by assuming a fixed and discrete set of labels (\textit{e.g.}, ``granulation'' or ``slough'') for splitting the image into ulcer and skin.
+
+On the other hand, unsupervised methods describe chronic wounds by clustering similar regions into single tissue pieces, whereas ulcer borders are kept \textit{around} the wounded tissues~\cite{Dhane2017,Bates2016}.
+Maity et al.~\cite{Maity2018} surveyed Region Growing, $k$-Means, Fuzzy $C$-means, and Gaussian Mixture Model algorithms for the analysis of venous ulcers, and results indicated Gaussian Mixture Model segmented chronic wounds at $95.91\%$ Sensitivity ratio.
+Likewise, Dhane et al~\cite{Dhane2017} described a new fuzzy method for ulcer segmentation with up to $91.5\%$ accuracy ratio. 
+Clustering approaches provide the basis for measuring the size, volume, and stage of the wounds, which enhances final diagnoses~\cite{Bates2016,Todd2018}.
+However, as computational complexity of \textit{unsupervised-only} methods is gradually affected by the number of regions of interest, clustering routines can become time and power consuming, and, consequently, unsuitable for personal computers and battery-bounded devices~\cite{Deserno2018}. 
+
+Aiming at surpassing those drawbacks, we propose a new approach that combines the best of supervised and unsupervised paradigms.
+Our method, named \system (\textit{\textbf{T}wo-\textbf{P}hase \textbf{L}earning \textbf{A}pproach}), is a two-phase approach that removes points of no-interest (\textit{e.g.}, background area) for reducing the number of candidate regions to be clustered into different tissue pieces.
+Given a wound photo recorded by a fixed protocol, \system first phase performs a pixelwise classification of potential points of interest, while pre-processing filters smooth lower limb borders.
+\system second phase processes the cleaned data by using a divide-and-conquer strategy. 
+It builds upon SLIC~\cite{Achanta2012} superpixel construction algorithm for dividing the lower limb into regions of interest with well-defined borders, and clusters the superpixels by taking advantage of the similarity-based DBSCAN algorithm~\cite{Kriegel2017}.
+
+Since both \system phases are parametric, we discuss the tuning of pixel classification and superpixel clustering algorithms by using a real and annotated set of dermatological wounds.
+Empirical evaluations on representative samples up to $100{,}000$ points showed a compact Multi-Layer Perceptron with Levenberg--Marquardt training method outperformed other classifiers as \system first phase.
+We also evaluated DBSCAN performance with regards to five distance functions ($L_1$, $L_2$, $L_\infty$, Canberra, and BrayCurtis) and results indicated $L_1$ function generates fewer groups in comparison to the competitors, and the number of clusters is an exponential decay to the similarity ratio.
+Accordingly, we used the elbow criterion~\cite{Jolliffe2011} as the $L_1$-based DBSCAN threshold for tuning \system second phase.
+Finally, we performed an experiment with fine-tuned \system on real images and results showed tissues were segmented at a low error ratio.
+In summary, the main contributions of this study are as follows:
+
+\begin{itemize}
+\item \underline{Wound segmentation}: We designed a two-phase approach (\system) that combines supervised and unsupervised learning for the segmentation of chronic wounds.
+
+\item \underline{\system tuning}: We tuned our approach through empirical evaluations on a real set of ulcers.
+Results indicated MLP, $L_1$ and the elbow criterion as suitable \system parameters.
+\end{itemize}
+
+The remainder of this paper is structured as follows. 
+Section~2 introduces the basic concepts of the paper and the main related work. 
+The proposed method is described in Section~3. 
+Section~4 presents the experiments and discusses the results. 
+Finally, Section~5 presents the conclusions and future work.
+

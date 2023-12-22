@@ -1,0 +1,111 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xspace}
+\usepackage{amsfonts}
+\usepackage{algorithm2e}
+\usepackage{url}
+\usepackage[table,xcdraw]{xcolor}
+%\usepackage{soul}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    
+\def\system{\texttt{2PLA}\xspace}
+\def\dataset{\texttt{ULCER\_SET}\xspace}
+
+\begin{document}
+
+\title{A Two-Phase Learning Approach for the Segmentation of Dermatological Wounds*\\
+\thanks{*This work was supported by FAPERJ (G. E-26/203.215/2016 and G. E-11/2018 Sediadas) and FAPESP (G. 2016/17078-0).
+Corresponding authors: \textit{\{wellingtons, marcosbedo\}@id.uff.br}.}
+}
+
+%\author{\\% <-this % stops a space
+%\address{}
+%\thanks{$^{2}$P. M. Azevedo-Marques and A. Traina are with University of S\~{a}o Paulo.}
+%\thanks{$^{3}$A. Jorge is with S\~{a}o Carlos Federal University.}
+%\thanks{$^{4}$L. Santos is with Federal Institute of North of Minas Gerais.}
+%\thanks{$^{5}$D. Oliveira is with IC/Fluminense Federal University - Brazil.}
+%}
+
+\author{\IEEEauthorblockN{Wellington S. Silva$^{\star}$, Daniel L. Jasbick$^{\star,\dagger}$, Rodrigo E. Wilson$^{\star}$, Paulo M. Azevedo-Marques$^{\bullet}$,\\ Agma J. M. Traina$^{\mp}$, Lucio F. D. Santos$^{\diamond}$, Ana E. S. Jorge$^{\ddagger}$, Daniel de Oliveira$^{\dagger}$, and Marcos V. N. Bedo$^{\star}$}
+\IEEEauthorblockA{
+$^{\star}$Fluminense Northwest Institute, Fluminense Federal University, Brazil\\
+$^{\dagger}$Institute of Computing, Fluminense Federal University, Brazil\\
+$^{\bullet}$Ribeir\~{a}o Preto Medical School, University of S\~{a}o Paulo, Brazil\\
+$^{\mp}$Department of Computer Science, University of S\~{a}o Paulo, Brazil\\
+$^{\diamond}$Federal Institute of North of Minas Gerais -- Montes Claros, Brazil\\
+$^{\ddagger}$Department of Physical Therapy, Federal University of S\~{a}o Carlos, Brazil 
+}}
+
+
+\maketitle
+
+\begin{abstract}
+Tissue segmentation in photographs of lower limb chronic ulcers is a non-intrusive approach that supports dermatological analyses.
+This paper presents \system, a method that combines supervised and unsupervised learning strategies for enhancing the segmentation of dermatological wounds.
+Given an ulcer photo captured according to a fixed protocol, \system first phase performs a pixelwise classification of points of interest, whereas pre-processing filters are employed for the smoothing of image noise.
+The cleaned image is further sent to the \system divide-and-conquer second phase.
+It builds upon SLIC superpixel construction algorithm for dividing the lower limb into regions of interest with well-defined borders, and clusters the superpixels by taking advantage of the similarity-based DBSCAN algorithm.
+We set up the phases of our method by using a real annotated set of dermatological wounds, and empirical evaluations on representative samples up to $100{,}000$ points showed a compact Multi-Layer Perceptron with Levenberg--Marquardt training algorithm (Cohen-Kappa = $.971$, Sensitivity = $.98$, and Specificity = $.98$) outperformed other classifiers as \system first phase.
+Additionally, experimental trials on DBSCAN with five distance functions ($L_1$, $L_2$, $L_\infty$, Canberra, and BrayCurtis) indicated $L_1$ function provided fewer groups in comparison to the competitors, and the number of clusters was an exponential decay to the similarity ratio.
+Accordingly, we used the elbow criterion for finding the $L_1$-based DBSCAN threshold as \system second phase parameterization.
+We evaluated the fine-tuned setting of our method over a labeled set of ulcer images, and wounded tissues were segmented within a $.05$ Mean Absolute Error ratio.
+These results illustrate the impact of learning parameters on \system as well as the method efficacy for wound segmentation.
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+Wound images, Superpixels, MLP, DBSCAN
+\end{IEEEkeywords}
+
+\input{introduction}
+\input{background}
+\input{method}
+\input{experiments}
+\input{conclusions}
+
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+
+%section*{References}
+
+%Please number citations consecutively within brackets \cite{b1}. The 
+%sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
+%number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
+%the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+
+%%Number footnotes separately in superscripts. Place the actual footnote at 
+%the bottom of the column in which it was cited. Do not put footnotes in the 
+%abstract or reference list. Use letters for table footnotes.
+
+%Unless there are six authors or more give all authors' names; do not use 
+%``et al.''. Papers that have not been published, even if they have been 
+%submitted for publication, should be cited as ``unpublished'' \cite{b4}. %Papers 
+%that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
+%Capitalize only the first word in a paper title, except for proper nouns and 
+%element symbols.
+
+%For papers published in translation journals, please give the English 
+%citation first, followed by the original foreign-language citation \cite{b6}.
+
+%\begin{thebibliography}{00}
+%\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+%\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+%\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+%\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+%\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+%\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+%\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+%\end{thebibliography}
+
+\end{document}
+
+
